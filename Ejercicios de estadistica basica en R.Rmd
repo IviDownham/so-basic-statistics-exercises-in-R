@@ -1,0 +1,710 @@
+---
+title: "Ejercicios de estadistica basica"
+author: "Ivan downham Vital"
+date: "19/9/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 1
+
+¿Algunos poblados son más ventosos que otros? ¿Chicago merece el apodo de "la Ciudad de los vientos"? A cominuacrón aparece el promedio de velocidades del viento (en millas por hora) para 45 ciudades seleccionadas de Estados Unidos:
+
+8.9 12.4 8.6 11.3 9.2 8.8 35.1 6.2 7.0 7.1 11.8 10.7 7.6 9.1 9.2 8.2 9.0 8.7 9.1 10.9 10.3 9.6 7.8 11.5 9.3 7.9 8.8 8.8 12.7 8.4 7.8 5.7 10.5 10.5 9.6 8.9 10.2 10.3 7.7 10.6 8.3 8.8 9.5 8.8 9.4
+
+
+```{r cars}
+x<-c(8.9,12.4,8.6,11.3,9.2,8.8,35.1,6.2,7.0,7.1,
+     11.8,10.7,7.6,9.1,9.2,8.2,9.0,8.7,9.1,10.9,
+     10.3,9.6,7.8,11.5,9.3,7.9,8.8,8.8,12.7,8.4,
+     7.8,5.7,10.5,10.5,9.6,8.9,10.2,10.3,7.7,10.6,
+     8.3,8.8,9.5,8.8,9.4)
+y<-c(8.9,12.4,8.6,11.3,9.2,8.8,6.2,7.0,7.1,11.8,
+     10.7,7.6,9.1,9.2,8.2,9.0,8.7,9.1,10.9,10.3,
+     9.6,7.8,11.5,9.3,7.9,8.8,8.8,12.7,8.4,7.8,5.7,
+     10.5,10.5,9.6,8.9,10.2,10.3,7.7,10.6,8.3,8.8,9.5,8.8,9.4)
+```
+
+### a) Construya un histograma de frecuencia relativa para estos datos. (Seleccione las fronteras de clase sin incluir el valor de 35.1 en el intervalo de valores.) 
+
+```{r}
+hist(y, main = "Histograma de Velocidades", 
+     xlab = "Promedio de Velocidades", ylab = "Millas por hora")
+```
+
+### b) El valor 35.1 se registró en Mt. Washington. New Hampshire. ¿La gcograffa de esa ciudad explica lamagnitud promedio de la velocidad de sus vientos?
+
+El lugar de donde se sacó este promedio es Mt. Washington. New Hampshire, más conocido como el monte Washington. A continuación presento un fracmento de su descripción en Wikipedia:
+
+"El monte Washington es el pico más alto del Noreste de Estados Unidos con 1917 m y la montaña más prominente al este del río Misisipi. Es famoso por su tiempo peligrosamente errático"
+
+Es claro que este lugar presenta un clima que no corresponde a un estandar que se pueda comparar con lugares más bien comunes.
+
+### c) El promedio de velocidad de vientos en Chicago es 10.3 millas por hora. ¿Qué porcentaje ele las ciudades tienen promedios de velocidad de vientos mayores que Chicago? 
+
+La proporción es, simplemente, la cantidad de ciudades que cumplen con la característica entre el total de ciudades.
+```{r}
+r<-sum(x>10.3)/length(x)
+r
+```
+
+### d)¿Piensa usted que Chicago tiene vientos inusuales? 
+
+En paticular, no tiene vientos demasido exagerados, sin embargo, la proporción de ciudades que tienen vientos superiores es poca, además tomando en cuenta que uno de estos promedios es una zona con condiciones extremadamente erraticas en cuanto a su clima. Así que sí, los vientos de Chicago son poco usuales.
+
+## 2
+
+De gran importancia para residentes de la región central de Florida es la cantidad de material radiactivo presente en el suelo de zonas recuperadas de la explotación minera de fosfatos. Las mediciones de la cantidad de U-238 en 25 muestras de suelo fueron como sigue (mediciones en picocurios por gramo): 
+
+0.74 6.47 1.90 2.69 0.75 0.32 9.99 1.77 2.41 1.96 1.66 0.70 2.42 0.54 3.36 3.59 0.37 1.09 8.32 4.06 4.55 0.76 2.03 5.70 12.48
+
+### Construya un histograma de frecuencia relativa para estos datos. 
+
+```{r}
+library(fdth)
+x2<-c(0.74,6.47,1.90,2.69,0.75,0.32,9.99,1.77,
+      2.41,1.96,1.66,0.70,2.42,0.54,3.36,3.59,
+      0.37,1.09,8.32,4.06,4.55,0.76,2.03,5.70,12.48)
+dist2 <- fdt(x2,breaks="Sturges")
+dist2
+plot(dist2, type="fh")
+```
+
+## 3
+
+Las 40 acciones principales del mercado secundario (OTC, por sus siglas en inglés), clasificadas por el porcentaje de acciones en circulación vendidas en un día el año pasado son como sig ue:
+
+11.88 6.27 5.49 4.81 4.40 3.78 3.44 3.11 2.88 2.68 7.99 6.07 5.26 -1.79 4.05 3.69 3.36 3.03 2.74 2.63 7.15 5.98 5.07 4.55 3.94 3.62 3.26 2.99 2.74 2.62 7.13 5.91 4.94 4.4 3.93 3.48 3.20 2.89 2.69 2.61
+
+### a)Construya un histograma de frecuencia relativa para describir estos datos.
+
+```{r}
+x3<-c(11.88,6.27,5.49,4.81,4.40,3.78,3.44,
+      3.11,2.88,2.68,7.99,6.07,5.26,-1.79,
+      4.05,3.69,3.36,3.03,2.74,2.63,7.15,
+      5.98,5.07,4.55,3.94,3.62,3.26,2.99,
+      2.74,2.62,7.13,5.91,4.94,4.4,3.93,3.48,
+      3.20,2.89,2.69,2.61)
+dist3 <- fdt(x3,breaks="Sturges")
+dist3
+plot(dist3, type="fh")
+```
+
+### b) ¿Qué proporción de estas 40 acciones principales vendió más de 4% de las acciones en circulación? 
+
+```{r}
+r3<-sum(x3>4)/40
+r3
+```
+
+### c) Si una de las acciones se selecciona al azar de las 40 para las que se tomaron los datos precedentes.¿cuál es la probabilidad de que venda menos de 5% de sus a cciones en circulación? 
+
+Es claro que $P(X<5)=\frac{\#(X<5)}{\#(X)}$, es decir que $P(X<5)$ es:
+
+```{r}
+p3<-sum(x3<5)/40
+p3
+```
+
+## 4
+
+Aquí damos el histo grama de frecuencia relativa asociado con los promedios de puntos de calificación (PPC) de una muestra de 30 estudiant es: 
+
+![Grafica Ejercicio 4](Grafica_4.png)
+
+### a) ¿Cuáles de las categorías de PPC identificadas en el eje hori zontal están asocia das con la proporción más grande de estudiantes? 
+
+Las categorías con la proporción más grande son las correspondientes a los intervalos (2.45, 2.65) y (2.65, 2.85)
+
+### b) ¿Qué proporción de estudiantes tuvo PPC en cada una de las categorías que identificamos?
+
+Primero debemos identificar las proporciones por intervalo, a cada intervalo lo llamaremos $s_i$ para $i=1,2,...,8$ 
+
+```{r}
+s4<-1:8
+s4[1]=3/30
+s4[2]=3/30
+s4[3]=3/30
+s4[4]=6/30
+s4[5]=6/30
+s4[6]=4/30
+s4[7]=2/30
+s4[8]=1/30
+```
+
+Ahora sólo debemos multiplicar cada uno de los $s_i$ por el tamaño de la muestra
+
+```{r}
+s4m<-s4*30
+s4m
+```
+
+### c ¿Qué proporción de los estudiantes tuvo PPC menores que 2.65?
+
+En este caso, los 4 primeros intervalos son menores a 2.65, sólo debemos sumar los primeros $s_i$ 
+
+```{r}
+s4s<-s4[1]+s4[2]+s4[3]+s4[4]
+s4s
+```
+
+## 5
+
+El histograma de frecuencia relativa que aparece acontinuación se construyó a partir de datos obtenidos de una muestra aleatoria de 25 familias. A cada una se le preguntó el número de cuartos de galón de leche que habían comprado la semana previa.
+
+![Grafica Ejercicio 5](Grafica_5.png)
+
+### a) Use este histograma de frecuencia relativa para determinar el número de cuartos de leche comprados por la proporción más grande de las 25 familias. La categoría asociada con la frecuencia relativa más grande se denomina categoría modal
+
+Es calro que la frecuencia modal es la asociada con el número 2 y corresponde al 36% de la población, al multiplicar 0.36 por 25, tenemos que 9 de las 25 familias compran 2 cuartos de leche.
+
+### b) ¿Qué proporción de las 25 familias compró más de 2 cuartos de leche?
+
+Aquí basta sumar los valores de las proporciones que corresponden a valores mayores a 2, es decir, 3, 4 y 5. Éstas son 0.2, 0.11 y 0.02. Por lo tanto, la proporción que buscamos es 0.33.
+
+### c) ¿Qué proporción compró  más de 0 pero menos de 5 cuartos?
+
+En este caso, sólo hablos de los valores 1, 2, 3 y 4, cuyas proporciones corresponden a 0.1, 0.33, 0.2 y 0.11, por lo tanto la proporción es la suma, es decir 0.73.
+
+## 6
+
+Las estturas detectadas por 105 estudiantes de un grupo de bioestadística se emplearon para construír el histograma que aparece a continuación.
+
+![Grafica Ejercicio 6](Grafica_6.png)
+
+### a) describa la forma del histograma
+
+En general el histograma es errático, con saltos entre frecuencias altas con bajas. Sin embargo, es claro que en los puntos que corresponden a los valores al rededor de 60 y 75, el histograma decrece y que en los valores cerca de67 los valores del histograma llegan a sus valores más altos, aunque justo a la mitad haya un decaimiento, en promedio, los valores sobresalen más que los de las orillas. Todo esto nos da la idea de que esto puede referir a una población normal.
+
+### b) ¿Este histograma tiene una caraterística poco común?
+
+Efectivamente. Justo en sus valores medios rompe la tendencia de crecimiento que tiene cuando de las orillas se acercan al centro. En pocas palabras, el valore de la media, en realidad es poco común dentro de la misma población. 
+
+### c) ¿Puede el lector dar una explicación acerca de los dos picos en el histograma? ¿Hay alguna caracterización de la estatura que resulta en los dos picos separados? ¿Cuál es?
+
+En realidadm estos dos picos podrían deberse a que la muestra no fue lo suficientemente grande o a que se tomó en lugares con una discrepancia muy alta en cuanto a sus estaturas. 
+
+Esta forma con dos picos podría verse en las horas que las personas laboran en el trabajo. Esto debido a que, en general, las personas sólo pueden trabajar ya sea en un turno o en medios turnos. Pocas personas trabajarían en rangos medios entre esas dos opciones.
+
+### 7
+
+Un artículo  en Archaeometry presentó  un análisis  de 26 muestras  de cerámica romano-británica hallada en cuatro hornos  en sitios  diferentes  del  Reino  Unido.  El  porcentaje de óxido  de aluminio  en cada  una de las 26 muestras  aparece  a continuación
+
+![Tabla Ejercicio 6](Tabla_7.png)
+
+### a) Construya un histograma de frecuencia relativa para describir el contenido de óxido  de aluminio de las 26 muestras de cerámica.
+
+```{r}
+x7<-c(14.4,11.6,11.8,18.3,17.7,13.8,11.1,11.6,
+      15.8,18.3,14.6,13.4,18.0,16.7,11.5,12.4,
+      18.0,14.8,13.8,13.1,20.8,19.1,10.9,12.7,
+      10.1,12.5)
+dist7 <- fdt(x7,breaks="Sturges")
+dist7
+plot(dist7, type="fh")
+```
+
+### b) ¿Qué característica poco  común observa  el lector en este histograma? Al ver los datos.  ¿puede  dar una explicación de esta característica  poco común?
+
+Este es un caso similar al anterior, aquí empezamos el histograma con valores altos que deacaen, sin embargo, luego vuleve a haber un realce en forma de pico que vuelve a decrecer. 
+
+## 9
+
+Los  ritmos de respiración en  reposo para  estudiantes en edad  universitaria están  normalmente distribuidos.  en  forma aproximada, con  una  media  de  12  y desviación  estándar de 2.3  respiraciones por  minuto.¿Qué  fracción de todos  los  estudiantes en edad  universitaria  tienen  ritmos  de  respiración en  los  intervalos  siguientes?
+
+### a) 9.7  a  14.3 respiraciones  por minuto 
+
+```{r}
+x9a<-pnorm(9.7, mean = 12, sd = 2.3, 
+           lower.tail = F)-pnorm(14.3, 
+           mean = 12, sd = 2.3, lower.tail = F)
+x9a
+```
+
+### b) 7.4 a  16.6  respiraciones por minuto 
+
+```{r}
+x9b<-pnorm(7.4, mean = 12, sd = 2.3, 
+           lower.tail = F)-pnorm(16.6, 
+           mean = 12, sd = 2.3, lower.tail = F)
+x9b
+```
+
+### c) 9.7 a  16.6  respiraciones por  minuto
+
+```{r}
+x9c<-pnorm(9.7, mean = 12, sd = 2.3, 
+           lower.tail = F)-pnorm(16.6, 
+           mean = 12, sd = 2.3, lower.tail = F)
+x9c
+```
+
+### d) Menos de 5.1  o más  de  18.9  respiraciones por minuto
+
+```{r}
+x9d<-1-pnorm(5.1, mean = 12, sd = 2.3, 
+             lower.tail = F)+pnorm(18.9, 
+             mean = 12, sd = 2.3, lower.tail = F)
+x9d
+```
+
+## 10
+
+Se ha proyectado que el promedio y la desviación estándar del tiempo empleado en Línea usando  la Internet son, respectivamente, 14 y 17 horas por persona  por año (muchos no usan la Internet en absoluto).
+
+
+### a) ¿Qué valor está exactamente a 1 desviación estándar debajo de la media?
+
+Esto es simple, no nos pide probabilidades, sólo el valor que se encuentra a 17 unidades por debajo de 14, esto es -3.
+
+### b) Si el tiempo empleado en línea usando la Internet está normalmente distribuido en forma  aproximada, ¿qué proporción  de los usuarios pasa un tiempo en línea que es menor al valor hallado en el  inciso a?
+
+```{r}
+x10<-1-pnorm(9.7, mean = 14, sd = 17, 
+             lower.tail = F)
+x10
+```
+
+## 11
+
+Los deportes acuáticos  se han sugerido como  método de ejercicio cardiovascular para atletas lesionados y otros que deseen  un programa  de entrenamiento aeróbico  de bajo impacto.  En un estudio para investigar  la relación  entre cadencia  de ejercicios y ritmo cardiaco. Se midieron los ritmos cardiacos de 20 voluntarios  en buenas  condiciones a una cadencia  de 48 ciclos  por minuto  (un ciclo  formado  por dos
+pasos). Los datos son como  sigue:
+
+87 109 79 80 96 95 90 92 96 98 101 91 78 112 94 98 94 107 81 96
+
+### a) Use  la amplitud de las  mediciones  para obtener  una estimación de la desviación  estándar.
+
+En este caso, los valores que nos muestran podrían corresponder a una desviación estandar del 5.
+
+### b) Construya un histograma de frecuencia  para Jos datos.  Use el histograma para obtener  una aproximación visual  a y-barra y s.
+
+```{r}
+x11<-c(87,109,79,80,96,95,90,92,96,98,
+       101,91,78,112,94,98,94,107,81,96)
+hist(x11, main = "Histograma de Ritmos Cardiacos", 
+     ylab = "Cantidad acumulada", 
+     xlab = "Latidos por minuto")
+```
+
+Parece que la media puede rondar entre los valores de 90 y 100, sin embargo, este valor puede no estar en ese rango debido al pico que se luce al principio del histograma. La desviación estandar parece estar rondando entre 5 y 10.
+
+
+### c) Calcule y-barra y s. Compare estos resultados con las verificaciones de cálculo proporcionadas por los incisos a y b
+
+```{r}
+xbar11<-mean(x11, na.rm = TRUE)
+de11<-sd(x11, na.rm = TRUE)
+xbar11
+de11
+```
+Efectivamente los valores salieron según lo esperado, auqnue la desviación estandar están en límite de lo que yo esperaba y la media un poco menor a lo que se podía ver en el hitograma, auqnue esperado por lo mencionado antes.
+
+### d) Construya los intervalos  y ± ks. k =  1, 2 y 3, y cuente  el número  de mediciones que caen en cada intervalo.  Compare las fracciones que  caen  en  los  intervalos con  las fracciones que  esperaría   de acuerdo  con la regla empírica.
+
+```{r}
+s11i<-1:3
+s11s<-1:3
+
+s11i[1]<-xbar11-de11
+s11i[2]<-xbar11-2*de11
+s11i[3]<-xbar11-3*de11
+
+s11s[1]<-xbar11+de11
+s11s[2]<-xbar11+2*de11
+s11s[3]<-xbar11+3*de11
+
+i111<-sum(s11i[1]<x11)-sum(s11s[1]<x11)
+i112<-sum(s11i[2]<x11)-sum(s11s[2]<x11)
+i113<-sum(s11i[3]<x11)-sum(s11s[3]<x11)
+```
+La cantidad de valores que caen dentro de los intervalos calculdos son
+
+```{r}
+i111
+i112
+i113
+```
+
+Según la regla empirica, el 68% de los datos deben estar en el intervalo con 1 desviación estandar de amplitud, es decir, al redeor de 14, se acerca bastante al número de nuesttro intervalo. Para el intervalo de 2 desviaciones estandar de amplitud le corresponde el 95%, es decir 19, también se parece mucho auqnue a partir de aquí ya avarcó todos los datos, esto posiblemente sea por la cantidad tan reducida de los datos. 
+
+## 12
+
+Los datos siguientes dan los tiempos de falla para n= 88 radiotransmisores-receptores:
+
+16 224 16 80 96 536 400 80 392 576 128 56 656 224 40 32 358 384 256 246 328 464 448 716 304 16 72 8 80 72 56 608 108 194 136 224 80 16 424 264 156 216 168 184 552 72 184 240 438 120 308 32 272 152 328 480 60 208 340 104 72 168 40 152 360 232 40 112 112 288 168 352 56 72 64 40 184 264 96 224 168 168 114 280 152 208 160 176
+
+### a) Utilice el rango para calcular s para los n = 88 tiempos para falla
+
+```{r}
+x12<-c(16,224,16,80,96,536,400,80,392,576,
+       128,56,656,224,40,32,358,384,256,
+       246,328,464,448,716,304,16,72,8,80,
+       72,56,608,108,194,136,224,80,16,424,
+       264,156,216,168,184,552,72,184,240,
+       438,120,308,32,272,152,328,480,60,
+       208,340,104,72,168,40,152,360,232,40,
+       112,112,288,168,352,56,72,64,40,184,
+       264,96,224,168,168,114,280,152,208,160,176)
+rango12<-max(x12)-min(x12)
+deaprox<-rango12/4
+deaprox
+```
+
+### b) Construya  un histograma  de frecuencia para los datos.  [Observe  la  tendencia de la distribución  a extenderse hacia fuera (sesgo) a la derecha.]
+
+```{r}
+dist12 <- fdt(x12,breaks="Sturges")
+dist12
+plot(dist12, type="fh")
+```
+
+### c) Use una calculadora (o computadora) para calcular y y s. (Hacer manualmente el cálculo es demasiado tedioso para este ejercicio.)
+
+```{r}
+xbar12<-mean(x12, na.rm = TRUE)
+de12<-sd(x12, na.rm = TRUE)
+xbar12
+de12
+```
+
+### d) Calcule los  intervalos y ± ks,  k = 1, 2 y 3. y cuente el número de mecliciones  que caen en cada intervalo. Compare sus resultados con los resultados de la regla empírica. Observe que la regla empírica proporciona una descripción más o menos buena de estos datos, aun cuando la distribución está altamente sesgada. 
+
+```{r}
+s12i<-1:3
+s12s<-1:3
+
+s12i[1]<-xbar12-de12
+s12i[2]<-xbar12-2*de12
+s12i[3]<-xbar12-3*de12
+
+s12s[1]<-xbar12+de12
+s12s[2]<-xbar12+2*de12
+s12s[3]<-xbar12+3*de12
+
+i121<-sum(s12i[1]<x12)-sum(s12s[1]<x12)
+i122<-sum(s12i[2]<x12)-sum(s12s[2]<x12)
+i123<-sum(s12i[3]<x12)-sum(s12s[3]<x12)
+```
+
+La cantidad de datos que están en estos intervalos son
+
+```{r}
+i121
+i122
+i123
+```
+
+Bajo la regla emírica los la cantidad de datos que deberían de estas dentro de estos datos son, respectivamente 60, 84 y 88. Podemos ver que se aproxima bastante bien.
+
+## 13
+
+An a study of the oral home cure practico and  rcusons  for secking  dental care  among  individuals on renal dialysis,   Atassi  (A~ l)  studjcd  90  subjects  on  renal  dialysis.  The oral  hygiene  status  of  a11 subjects was  examined   using  a plaque  index  with a range of O to 3  (O  - no soft plaque  deposiis, 3 = an abundance of soft plaque deposits). The following  table shows the plaque index seores for all 90 subjects
+
+1.17 2.50 2.00 2.33 1.67 1.33 1.17 2.17 2.17 1.33 2.17 2.00
+
+### a) Use  these data  to prepare: 
+A Frequency  distribution
+A relative  frequency  distribution
+A cumuJative  frequency  distribution
+A cumuJative  relative  frequency  distribution
+A histogram
+A frequency poJygon
+
+
+```{r}
+x13<-c(1.17,2.50,2.00,2.33,1.67,1.33,
+       1.17,2.17,2.17,1.33,2.17,2.00)
+dist13 <- fdt(x13,breaks="Sturges")
+dist13
+plot(dist13, type="fh")
+plot(dist13, type="cfh")
+```
+
+### b) What percentage of the measurernents are less than 2.00?
+
+```{r}
+r13b<-sum(2>x13)/20
+r13b
+```
+
+### c) What proportion of the subjects bave measurements greater than or equal to 1.50?
+
+```{r}
+r13c<-sum(1.5<=x13)/20
+r13c
+```
+
+### d) What percentage of the measurements are between 1.50 and 1.99 inclusive? 
+
+```{r}
+r13d<-r13c-r13b
+r13d
+```
+
+### e) How many  of the measurements are greater than 2.49?
+
+```{r}
+r13e<-sum(2.49<=x13)/20
+r13e
+```
+
+### f) What  proportion  of the measurements  are either  less  than  1.0 or greater  lhan 2.49?
+
+```{r}
+r13f<-sum(1>x13)/20+sum(2.49<x13)/20
+r13f
+```
+
+## 14
+
+Janardhan et aJ. (A-2) conducted a study  in which  they measured incidental intracranial aneurysms (IIAs)  in  125 patients. Toe  researchers exarnined postproceduraJ complications and  concluded that IIAs  can  be  safely  treated   without  causing  mortaJity  and  with   a Jower cornplications  rate  than previously  reponed.  The  following are  the  sizes (in millirneters) of the  159  IIAs  in  the  sarnple.
+
+8.1 10.0 5.0 7.0 10.0 3.0 20.0 4.0 4.0 6.0 6.0 7.0
+
+### a) Use these data  to prepare:
+A Irequency  distribution
+A relative  Irequency  distribution
+A cumulative  frequency  distribution
+A cumulative  relative  frequency  distribution
+A histogram
+A Irequency polygon
+
+```{r}
+x14<-c(8.1,10.0,5.0,7.0,10.0,3.0,20.0,
+       4.0,4.0,6.0,6.0,7.0)
+dist14 <- fdt(x14,breaks="Sturges")
+dist14
+plot(dist14, type="fh")
+plot(dist14, type="cfh")
+```
+
+### b) What  percentage  of the rneasurernents  are between  10 and  14.9  inclusive?
+
+```{r}
+r14b<-(sum(10<=x14)-sum(14.9<=x14))/12
+r14b
+```
+
+### c) How many observations  are  less  than  20?
+
+```{r}
+r14c<-sum(20>x14)
+r14c
+```
+
+### d) What  proportion  of the measurements  are greater  than  or equal to 25?
+```{r}
+r14d<-sum(25<=x14)
+r14d
+```
+
+### e) What  percentage  of the measurements  are either less than 10.0  or greater  than  19.95?
+```{r}
+r14e<-(sum(10>x14)+sum(19.95<x14))/12
+r14e
+```
+
+## 15
+
+Hoekerna et  al  (A-3)  studied the  craniofacial morpbology of patients diagnosed with  obstructive sleep  apnea   syndrome  (OSAS) in  healthy  male  subjects.  One  of the demographi variables  the researchers collected for all subjects was  the Body  Mass  Index (calculated by dividing weight in kg by tbe squa.re of tbe patient's heigbt in cm). Toe following are tbe BMI vaJues of 29 OSAS  subjects.
+
+33.57 27.78 40.81
+
+### a) Use  these data to construct: 
+A frequency  distribution
+A relalive frequency distribution
+A cumulalive  frequency distribut ion
+A cumulative  relative Irequency  distribution
+A histogram
+A frequency polygon
+
+```{r}
+x15<-c(33.57,27.78,40.81)
+dist15 <- fdt(x15,breaks="Sturges")
+dist15
+plot(dist15, type="fh")
+plot(dist15, type="cfh")
+```
+
+### b) What  percentage of lbe  measurernents are  less  than  30?
+
+Debido a que sólo hay un dato con valor menor a 30, la proporción de los menores es de $\frac{1}{3}$
+
+### c) What percentage  of the  measurernents are  between 40.0  and 49.99   inclusive?
+
+Como sólo hay un dato que cumple con esta característica, el procentaje de es 33.33%
+
+### d) What  percentage of the  measurements are  greater than  34.99?
+
+Sólo hay dos datos que cumplen con esto, así el porcentaje es de 66.66%
+
+## 16
+
+David Holben  (A-4) studi.cd selenium levels  in becf raiscd  in a low seleniwn región of che Unitcd States.  The goal  of the study  was to compare selenium lcvels in thc region-raiscd beef to seleniurn levels in cooked venison. squirrel. and beef frorn othcr  regions  of the Unitcd Statcs. Thc data below are the selenium lcvels calculated on a dry wcigbt basis in u,g/ 100 g for a sample  of 53 region-raiscd
+cattle.
+
+11.23 15.82
+
+### a) Use thesc data  to construct:
+A frequency distribution
+A relative frcqucncy distribution
+A cumulativc  frequency  distribution
+A cumulative  relative  frcquency distribution
+A bistogram
+A frequency polygon
+
+```{r}
+x16<-c(11.23,15.82)
+dist16 <- fdt(x16,breaks="Sturges")
+dist16
+plot(dist16, type="fh")
+plot(dist16, type="cfh")
+```
+
+### b) Obtener Skewness
+
+```{r}
+library(e1071)
+skewness(x16, na.rm = TRUE, type = 1) 
+```
+
+## 17
+
+Thc following table shows tbe number of hours 45 hospital  paticnts slept foUowing thc administration of a certain anesthetic.
+
+7 10 12 4 8 7 3 8 5 12 11 3 8 1 1 13 10 4 4 5 5 8 7 7 3 2 3 8 13 1 7 17 3 4 5 5 3 1 17 10 4 7 7 11 8
+
+### a) From  these  data  construct: 
+A frequency distribution
+A relative  frequency distribution
+A histograrn
+A frequcncy polygon
+
+```{r}
+x17<-c(7,10,12,4,8,7,3,8,5,12,11,3,
+       8,1,1,13,10,4,4,5,5,8,7,7,3,
+       2,3,8,13,1,7,17,3,4,5,5,3,1,
+       17,10,4,7,7,11,8)
+dist17 <- fdt(x17,breaks="Sturges")
+dist17
+plot(dist17, type="fh")
+plot(dist17, type="cfh")
+```
+
+### b) Obtener Skewness
+
+```{r}
+skewness(x17, na.rm = TRUE, type = 1) 
+```
+
+## 18
+
+The following are the number of bables born during a year in 60 community hospitals.
+
+30 55 27 45 56 48 45 49 32 57 47 56 37 55 52 34 54 42 32 59 35 46 24 57 32 26 40 28 53 54 29 42 42 54 53 59 39 56 59 58 49 53 30 53 21 34 28 50 52 57 43 46 54 31 22 31 24 24 57 29
+
+### a) From  thesc  data construct: 
+A frequency distribution
+A relative  frequcncy distribution
+A  histogram
+A frequency polygon
+
+```{r}
+x18<-c(30,55,27,45,56,48,45,49,32,
+      57,47,56,37,55,52,34,54,42,
+      32,59,35,46,24,57,32,26,40,
+      28,53,54,29,42,42,54,53,59,
+      39,56,59,58,49,53,30,53,21,
+      34,28,50,52,57,43,46,54,31,
+      22,31,24,24,57,29)
+dist18 <- fdt(x18,breaks="Sturges")
+dist18
+plot(dist18, type="fh")
+plot(dist18, type="cfh")
+```
+
+### b) Obtener Skewness
+
+```{r}
+skewness(x18, na.rm = TRUE, type = 1) 
+```
+
+## 19
+
+In a study of physical endurance levels of male collcge freshman, the following composite endurance seores  based on severa excrcise routines were collcctcd.
+
+254 281 192 260 212 179 225 179 181 149
+
+### a) From thcsc data  construct:
+
+A frequcncy distribution
+A rclative  frequency  distribution
+A frequency polygon
+A histogram
+
+```{r}
+x19<-c(254,281,192,260,212,179,225,179,181,149)
+dist19 <- fdt(x19,breaks="Sturges")
+dist19
+plot(dist19, type="fh")
+plot(dist19, type="cfh")
+```
+
+### b) Obtener Skewness
+
+```{r}
+skewness(x19, na.rm = TRUE, type = 1) 
+```
+
+## 20
+
+Schmidt et al. (A·6)  conducted a study to investigare whether autotransfusion of shed  mediastinal blood  could  reduce  the  number  of patients  needing  homologous blood  transfusión  and  reduce the amount  of transfused homologous blood if fixed  transfusión criteria wcre used. The following table shows  the  heights  in centimeters of the  109 subjects of whom  97 were  males.
+
+1.720 1.710 1.700 1.655 1.800 1.700 1.730 1.700 1.820 1.810 1.720 1.800
+
+### a) For these data construct  the following  distributions:  frequency, relative frequency. cumulativc frequency.  and  cumulative  relativo  frequency;  aud  the  following  graphs:  h.istogram.  frequcncy polygon.  and stern-and-lcaf plot.
+
+```{r}
+x20<-c(1.720,1.710,1.700,1.655,1.800,1.700,
+       1.730,1.700,1.820,1.810,1.720,1.800)
+dist20 <- fdt(x20,breaks="Sturges")
+dist20
+plot(dist20, type="fh")
+plot(dist20, type="cfh")
+stem(x20)
+```
+
+### b) Obtener Skewness
+
+```{r}
+skewness(x20, na.rm = TRUE, type = 1) 
+```
+
+### c) How do you account for the shape of the distribution of these data? 
+
+Podríamos pensar que existen dos tipos de datos que están interviniendo en la muestra, es decir que las concentraciones se dividen en dos centros debino a que hay dos poblaciones más probables interviviendo.
+
+### d) How tall were the tallcst 6.42 percent of tbe subjects?
+
+
+```{r}
+quantile(x20,1-0.0642)
+```
+
+### c) How tall were the shortest 10.09 percent of the subjects?
+
+```{r}
+quantile(x20,0.1009)
+```
+
+
+
+
+
+
+
